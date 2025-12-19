@@ -1,5 +1,11 @@
 import Link from "next/link";
 import Footer from "@/components/Footer";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Commercial Cleaning Services Miami | NCJM Maintenance Services",
+  description: "Professional commercial cleaning services in Miami including office cleaning, floor care, restaurant sanitation, and 24/7 operations. Serving Miami-Dade and Broward Counties.",
+};
 
 export default function ServicesPage() {
   const commercialServices = [

@@ -2,6 +2,12 @@
 
 import { useState } from "react";
 import Footer from "@/components/Footer";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Contact NCJM Maintenance Services | Get a Free Quote for Commercial Cleaning Miami",
+  description: "Contact NCJM Maintenance Services for professional commercial cleaning in Miami. Get a free quote for office cleaning, floor care, and maintenance services.",
+};
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({

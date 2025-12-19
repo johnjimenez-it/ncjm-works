@@ -1,5 +1,11 @@
 import Link from "next/link";
 import Footer from "@/components/Footer";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "About NCJM Maintenance Services | Family-Owned Commercial Cleaning Miami",
+  description: "Learn about NCJM Maintenance Services LLC, a family-owned commercial cleaning company serving Miami-Dade and Broward Counties with excellence, reliability, and integrity.",
+};
 
 export default function AboutPage() {
     const values = [
