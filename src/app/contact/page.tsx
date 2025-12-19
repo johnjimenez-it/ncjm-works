@@ -401,7 +401,7 @@ export default function ContactPage() {
           <div className="rounded-2xl overflow-hidden shadow-xl border border-slate-200">
             <div className="relative w-full h-96 bg-slate-100">
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3592.5!2d-80.2456!3d25.8489!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88d9b6823bcf83f7%3A0xef0b288e10bb269c!2s8731%20NW%2016th%20Ave%2C%20Miami%2C%20FL%2033147!5e0!3m2!1sen!2sus!4v1234567890"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d114841.02685890885!2d-80.207914!3d25.9856275!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88d9ab6aeb010e97%3A0xc069f9e7104b281b!2sHallandale%20Beach%2C%20FL%2033009!5e0!3m2!1sen!2sus!4v1718788934567!5m2!1sen!2sus"
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}
