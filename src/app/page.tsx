@@ -1,65 +1,149 @@
-import Image from "next/image";
+import Link from "next/link";
 
 export default function Home() {
+  const services = [
+    {
+      title: "Professional Office Cleaning",
+      description: "Tailored workspace maintenance for corporate environments",
+      icon: "🏢",
+    },
+    {
+      title: "Commercial Floor Care",
+      description: "Buffing, waxing, and deep cleaning for lasting shine",
+      icon: "✨",
+    },
+    {
+      title: "Restaurant & Kitchen Sanitation",
+      description: "Deep cleaning and sanitation for the hospitality industry",
+      icon: "🍽️",
+    },
+    {
+      title: "Educational Facilities",
+      description: "Safe and thorough cleaning for schools and child care centers",
+      icon: "🎓",
+    },
+    {
+      title: "24/7 Operations",
+      description: "Dedicated overnight and weekend crews to prevent business disruption",
+      icon: "🌙",
+    },
+    {
+      title: "Custom Proposals",
+      description: "Tailored maintenance solutions for your specific facility needs",
+      icon: "📋",
+    },
+  ];
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+    <div className="min-h-screen bg-slate-50">
+      {/* Hero Section */}
+      <section className="relative min-h-screen flex items-center justify-center bg-slate-900 overflow-hidden">
+        {/* Background overlay for video placeholder */}
+        <div className="absolute inset-0 bg-gradient-to-b from-slate-900/95 to-slate-900/80 z-0" />
+        
+        {/* Content */}
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 max-w-6xl">
+          <div className="text-center lg:text-left">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-extrabold text-white leading-tight mb-6">
+              The Gold Standard in{" "}
+              <span className="text-teal-400">Commercial Maintenance</span>.
+            </h1>
+            <p className="mt-4 text-lg sm:text-xl lg:text-2xl text-slate-300 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+              Serving South Florida&apos;s premier offices and facilities with surgical precision and custom schedules.
+            </p>
+            <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+              <Link
+                href="/estimate"
+                className="px-8 py-4 bg-teal-600 hover:bg-teal-500 text-white font-bold rounded-full transition-all duration-300 text-center shadow-lg hover:shadow-xl hover:scale-105"
+              >
+                Request a Proposal
+              </Link>
+              <Link
+                href="/contact"
+                className="px-8 py-4 bg-transparent border-2 border-white/30 hover:border-white/60 text-white font-bold rounded-full transition-all duration-300 text-center backdrop-blur-sm hover:bg-white/10"
+              >
+                Contact Us
+              </Link>
+            </div>
+          </div>
+        </div>
+
+        {/* Decorative elements */}
+        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-slate-50 to-transparent z-0" />
+      </section>
+
+      {/* Services Grid Section */}
+      <section className="py-16 sm:py-20 lg:py-28 px-4 sm:px-6 lg:px-8">
+        <div className="container mx-auto max-w-7xl">
+          {/* Section Header */}
+          <div className="text-center mb-12 sm:mb-16">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
+              Our Core Services
+            </h2>
+            <p className="text-lg sm:text-xl text-slate-600 max-w-2xl mx-auto">
+              Comprehensive maintenance solutions tailored to your facility&apos;s unique needs
+            </p>
+          </div>
+
+          {/* Services Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+            {services.map((service, index) => (
+              <div
+                key={index}
+                className="group relative bg-white rounded-2xl p-6 sm:p-8 shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-100 hover:border-teal-200 hover:-translate-y-1"
+              >
+                {/* Glassmorphism effect on hover */}
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-white/80 to-white/40 backdrop-blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10" />
+                
+                <div className="relative z-10">
+                  <div className="text-4xl sm:text-5xl mb-4">{service.icon}</div>
+                  <h3 className="text-xl sm:text-2xl font-bold text-slate-900 mb-3 group-hover:text-teal-600 transition-colors">
+                    {service.title}
+                  </h3>
+                  <p className="text-slate-600 text-base sm:text-lg leading-relaxed">
+                    {service.description}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 bg-slate-900">
+        <div className="container mx-auto max-w-4xl text-center">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6">
+            Ready to Elevate Your Facility?
+          </h2>
+          <p className="text-lg sm:text-xl text-slate-300 mb-8 max-w-2xl mx-auto">
+            Get a customized proposal for your commercial maintenance needs. Serving Miami-Dade and Broward Counties.
           </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+          <Link
+            href="/estimate"
+            className="inline-block px-8 py-4 bg-teal-600 hover:bg-teal-500 text-white font-bold rounded-full transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+            Get Your Free Estimate
+          </Link>
         </div>
-      </main>
+      </section>
+
+      {/* Footer */}
+      <footer className="py-8 px-4 sm:px-6 lg:px-8 bg-slate-50 border-t border-slate-200">
+        <div className="container mx-auto max-w-7xl">
+          <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div className="text-slate-600 text-sm sm:text-base">
+              <p className="font-semibold text-slate-900">NCJM Maintenance Services LLC</p>
+              <p>8731 NW 16 Ave, Miami, FL 33147</p>
+              <p>Serving Miami-Dade and Broward Counties</p>
+            </div>
+            <div className="text-slate-600 text-sm sm:text-base">
+              <p>24/7 Availability</p>
+              <p>Overnight & Weekend Specialization</p>
+            </div>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }
