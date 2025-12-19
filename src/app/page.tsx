@@ -57,7 +57,7 @@ export default function Home() {
             <p className="mt-4 text-lg sm:text-xl lg:text-2xl text-slate-300 max-w-2xl mx-auto leading-relaxed">
               Serving South Florida&apos;s premier offices and facilities with surgical precision and custom schedules.
             </p>
-            
+
             {/* Prominent CTA Button */}
             <div className="mt-10 sm:mt-12 flex justify-center">
               <Link
@@ -67,7 +67,7 @@ export default function Home() {
                 Request a Free Quote
               </Link>
             </div>
-            
+
             {/* Secondary Action */}
             <div className="mt-6 sm:mt-8 flex justify-center">
               <Link
@@ -115,6 +115,61 @@ export default function Home() {
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Featured Project Section */}
+      <section className="py-16 sm:py-20 lg:py-28 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-slate-100 to-slate-50">
+        <div className="container mx-auto max-w-7xl">
+          {/* Section Header */}
+          <div className="text-center mb-12 sm:mb-16">
+            <span className="inline-block px-4 py-2 bg-teal-100 text-teal-700 font-semibold rounded-full text-sm mb-4">
+              Featured Project
+            </span>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
+              Our Recent Work
+            </h2>
+            <p className="text-lg sm:text-xl text-slate-600 max-w-2xl mx-auto">
+              After-School Children&apos;s Program Cleaning
+            </p>
+          </div>
+
+          {/* Project Gallery Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 lg:gap-8">
+            {[
+              { src: "/photos/IMG_5859.jpg", alt: "Children's program cleaning - Image 1" },
+              { src: "/photos/IMG_5860.jpg", alt: "Children's program cleaning - Image 2" },
+              { src: "/photos/IMG_5862.jpg", alt: "Children's program cleaning - Image 3" },
+              { src: "/photos/IMG_5865.jpg", alt: "Children's program cleaning - Image 4" },
+            ].map((image, index) => (
+              <div
+                key={index}
+                className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 aspect-[4/3]"
+              >
+                <img
+                  src={image.src}
+                  alt={image.alt}
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                />
+                {/* Overlay on hover */}
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              </div>
+            ))}
+          </div>
+
+          {/* Project Description */}
+          <div className="mt-10 sm:mt-12 text-center">
+            <p className="text-slate-600 text-lg max-w-3xl mx-auto leading-relaxed">
+              We provided comprehensive cleaning services for a local after-school children&apos;s program,
+              ensuring a safe, sanitary, and welcoming environment for students and staff.
+            </p>
+            <Link
+              href="/contact"
+              className="inline-block mt-8 px-8 py-4 bg-teal-600 hover:bg-teal-500 text-white font-bold rounded-full transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
+            >
+              Get a Quote for Your Facility
+            </Link>
           </div>
         </div>
       </section>
