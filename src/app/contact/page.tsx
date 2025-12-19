@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Footer from "@/components/Footer";
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -12,6 +13,7 @@ export default function ContactPage() {
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const serviceTypes = [
     "Professional Office Cleaning",
@@ -21,6 +23,9 @@ export default function ContactPage() {
     "Janitorial Management Services",
     "Overnight & Weekend Operations",
     "Custom Commercial Maintenance",
+    "Residential - Regular House Cleaning",
+    "Residential - Deep Cleaning",
+    "Residential - Move-in/Move-out Cleaning",
     "Other",
   ];
 
@@ -36,10 +41,24 @@ export default function ContactPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    // Form submission logic would go here
+
+    // Create mailto link with form data
+    const subject = encodeURIComponent(`Proposal Request - ${formData.serviceType}`);
+    const body = encodeURIComponent(
+      `Name: ${formData.fullName}\n` +
+      `Company: ${formData.company}\n` +
+      `Phone: ${formData.phone}\n` +
+      `Service Type: ${formData.serviceType}\n\n` +
+      `Message:\n${formData.message}`
+    );
+
+    // Open email client
+    window.location.href = `mailto:ncjmlandscapeandcleaning@gmail.com?subject=${subject}&body=${body}`;
+
+    // Show success state
     setTimeout(() => {
       setIsSubmitting(false);
-      alert("Thank you for your request! We'll contact you soon.");
+      setIsSubmitted(true);
       setFormData({
         fullName: "",
         company: "",
@@ -47,7 +66,9 @@ export default function ContactPage() {
         serviceType: "",
         message: "",
       });
-    }, 1000);
+      // Reset success message after 5 seconds
+      setTimeout(() => setIsSubmitted(false), 5000);
+    }, 500);
   };
 
   return (
@@ -76,6 +97,24 @@ export default function ContactPage() {
                 <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-6">
                   Request a Proposal
                 </h2>
+
+                {/* Success Message */}
+                {isSubmitted && (
+                  <div className="mb-6 p-4 bg-teal-50 border border-teal-200 rounded-lg">
+                    <div className="flex items-center gap-3">
+                      <svg className="w-6 h-6 text-teal-600" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
+                        <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                      <p className="text-teal-800 font-medium">
+                        Your email client should have opened. If it didn&apos;t, please email us directly at{" "}
+                        <a href="mailto:ncjmlandscapeandcleaning@gmail.com" className="underline">
+                          ncjmlandscapeandcleaning@gmail.com
+                        </a>
+                      </p>
+                    </div>
+                  </div>
+                )}
+
                 <form onSubmit={handleSubmit} className="space-y-6">
                   {/* Full Name */}
                   <div>
@@ -188,7 +227,7 @@ export default function ContactPage() {
                     disabled={isSubmitting}
                     className="w-full sm:w-auto px-8 py-4 bg-teal-600 hover:bg-teal-500 text-white font-bold rounded-full transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
-                    {isSubmitting ? "Submitting..." : "Submit Request"}
+                    {isSubmitting ? "Opening Email..." : "Submit Request"}
                   </button>
                 </form>
               </div>
@@ -247,6 +286,31 @@ export default function ContactPage() {
                         className="text-teal-600 hover:text-teal-500 font-medium transition-colors text-sm sm:text-base"
                       >
                         (305) 282-2499
+                      </a>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-4">
+                    <div className="flex-shrink-0 w-10 h-10 rounded-full bg-teal-100 flex items-center justify-center">
+                      <svg
+                        className="w-5 h-5 text-teal-600"
+                        fill="none"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                      </svg>
+                    </div>
+                    <div>
+                      <p className="font-semibold text-slate-900 mb-1">Email</p>
+                      <a
+                        href="mailto:ncjmlandscapeandcleaning@gmail.com"
+                        className="text-teal-600 hover:text-teal-500 font-medium transition-colors text-sm sm:text-base break-all"
+                      >
+                        ncjmlandscapeandcleaning@gmail.com
                       </a>
                     </div>
                   </div>
@@ -332,7 +396,7 @@ export default function ContactPage() {
               Proudly serving Miami-Dade and Broward Counties with professional commercial maintenance services.
             </p>
           </div>
-          
+
           {/* Google Maps Embed Placeholder */}
           <div className="rounded-2xl overflow-hidden shadow-xl border border-slate-200">
             <div className="relative w-full h-96 bg-slate-100">
@@ -351,6 +415,9 @@ export default function ContactPage() {
           </div>
         </div>
       </section>
+
+      {/* Footer */}
+      <Footer />
     </div>
   );
 }

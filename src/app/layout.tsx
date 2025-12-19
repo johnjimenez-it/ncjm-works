@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Outfit } from "next/font/google";
 import Navbar from "@/components/Navbar";
+import WhatsAppButton from "@/components/WhatsAppButton";
 import "./globals.css";
 
 const inter = Inter({
@@ -17,7 +18,7 @@ const outfit = Outfit({
 
 export const metadata: Metadata = {
   title: "NCJM Maintenance Services LLC | Commercial Cleaning Miami",
-  description: "The Gold Standard in Commercial Maintenance. Serving Miami-Dade and Broward Counties with professional office cleaning, floor care, restaurant sanitation, and 24/7 operations.",
+  description: "The Gold Standard in Commercial Maintenance. Serving Miami-Dade and Broward Counties with professional office cleaning, floor care, restaurant sanitation, residential cleaning, and 24/7 operations.",
 };
 
 export default function RootLayout({
@@ -32,6 +33,7 @@ export default function RootLayout({
       >
         <Navbar />
         {children}
+        <WhatsAppButton />
       </body>
     </html>
   );
