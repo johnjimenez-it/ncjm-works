@@ -49,26 +49,32 @@ export default function Home() {
 
         {/* Content */}
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 max-w-6xl">
-          <div className="text-center lg:text-left">
+          <div className="text-center">
             <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-extrabold text-white leading-tight mb-6">
               The Gold Standard in{" "}
               <span className="text-teal-400">Commercial Maintenance</span>.
             </h1>
-            <p className="mt-4 text-lg sm:text-xl lg:text-2xl text-slate-300 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+            <p className="mt-4 text-lg sm:text-xl lg:text-2xl text-slate-300 max-w-2xl mx-auto leading-relaxed">
               Serving South Florida&apos;s premier offices and facilities with surgical precision and custom schedules.
             </p>
-            <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-              <Link
-                href="/estimate"
-                className="px-8 py-4 bg-teal-600 hover:bg-teal-500 text-white font-bold rounded-full transition-all duration-300 text-center shadow-lg hover:shadow-xl hover:scale-105"
-              >
-                Request a Proposal
-              </Link>
+            
+            {/* Prominent CTA Button */}
+            <div className="mt-10 sm:mt-12 flex justify-center">
               <Link
                 href="/contact"
+                className="px-10 sm:px-12 py-5 sm:py-6 bg-[#0D9488] hover:bg-teal-500 text-white font-bold text-lg sm:text-xl rounded-full transition-all duration-300 shadow-2xl hover:shadow-teal-500/50 hover:scale-110 transform"
+              >
+                Request a Free Quote
+              </Link>
+            </div>
+            
+            {/* Secondary Action */}
+            <div className="mt-6 sm:mt-8 flex justify-center">
+              <Link
+                href="/services"
                 className="px-8 py-4 bg-transparent border-2 border-white/30 hover:border-white/60 text-white font-bold rounded-full transition-all duration-300 text-center backdrop-blur-sm hover:bg-white/10"
               >
-                Contact Us
+                Our Services
               </Link>
             </div>
           </div>
