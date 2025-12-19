@@ -35,9 +35,9 @@ export default function Home() {
   ];
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-slate-50 pt-16 sm:pt-20">
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center bg-slate-900 overflow-hidden">
+      <section className="relative min-h-[calc(100vh-4rem)] sm:min-h-[calc(100vh-5rem)] flex items-center justify-center bg-slate-900 overflow-hidden">
         {/* Background overlay for video placeholder */}
         <div className="absolute inset-0 bg-gradient-to-b from-slate-900/95 to-slate-900/80 z-0" />
         
