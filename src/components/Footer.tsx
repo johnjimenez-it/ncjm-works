@@ -83,7 +83,7 @@ export default function Footer() {
             <p className="mb-4">Overnight &amp; Weekend Specialization</p>
             <p className="font-semibold text-slate-900 mb-2">Trust &amp; Compliance</p>
             <p className="leading-relaxed">
-              NCJM Maintenance Services LLC is a legally registered Florida entity. Locally compliant with Miami-Dade and Broward County Business Tax Receipts (BTR).
+              NCJM Maintenance Services LLC. A family-owned business legally registered in Florida and compliant with Miami-Dade County Local Business Tax requirements.
             </p>
           </div>
 
@@ -134,7 +134,7 @@ export default function Footer() {
         {/* Footer Bottom */}
         <div className="pt-8 border-t border-slate-200">
           <div className="flex flex-col sm:flex-row justify-between items-center gap-4 text-sm text-slate-500">
-            <p>&copy; {new Date().getFullYear()} NCJM Maintenance Services LLC. All rights reserved.</p>
+            <p>&copy; {new Date().getFullYear()} NCJM Maintenance Services LLC. A family-owned business legally registered in Florida and compliant with Miami-Dade County Local Business Tax requirements.</p>
             <div className="flex gap-6">
               <Link href="/contact" className="hover:text-slate-700 transition-colors">Contact</Link>
               <Link href="/services" className="hover:text-slate-700 transition-colors">Services</Link>

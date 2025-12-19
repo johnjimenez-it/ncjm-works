@@ -128,7 +128,7 @@ export default function AboutPage() {
                                         <path d="M5 13l4 4L19 7" />
                                     </svg>
                                     <span className="text-lg">
-                                        Fully licensed and compliant with local regulations
+                                        Registered Florida LLC &amp; Miami-Dade BTR Certified
                                     </span>
                                 </li>
                                 <li className="flex items-start gap-3">
