@@ -25,6 +25,7 @@ export default function ContactPage() {
     "Custom Commercial Maintenance",
     "Airbnb & Vacation Rental Cleaning",
     "Event Cleanup Services",
+    "Pressure Washing Services",
     "Residential - Regular House Cleaning",
     "Residential - Deep Cleaning",
     "Residential - Move-in/Move-out Cleaning",

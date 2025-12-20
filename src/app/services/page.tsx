@@ -121,6 +121,20 @@ export default function ServicesPage() {
       ],
       icon: "🎉",
     },
+    {
+      title: "Pressure Washing Services",
+      description:
+        "Restore the appearance of your property's exterior with our professional pressure washing services. We remove dirt, grime, mold, and stains from all types of surfaces.",
+      features: [
+        "Building exterior cleaning",
+        "Parking lot and garage washing",
+        "Sidewalk and walkway cleaning",
+        "Dumpster pad sanitization",
+        "Graffiti removal",
+        "Eco-friendly cleaning solutions",
+      ],
+      icon: "💦",
+    },
   ];
 
   return (
@@ -154,9 +168,10 @@ export default function ServicesPage() {
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {commercialServices.map((service, index) => (
-              <div
+              <Link
                 key={index}
-                className="bg-white rounded-2xl shadow-lg border border-slate-100 overflow-hidden hover:shadow-xl transition-shadow duration-300"
+                href="/contact"
+                className="bg-white rounded-2xl shadow-lg border border-slate-100 overflow-hidden hover:shadow-xl transition-all duration-300 hover:border-teal-200 block cursor-pointer"
               >
                 <div className="p-6 sm:p-8">
                   {/* Service Header */}
@@ -197,7 +212,7 @@ export default function ServicesPage() {
                     ))}
                   </div>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>

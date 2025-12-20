@@ -45,9 +45,9 @@ export default function Home() {
       icon: "🌙",
     },
     {
-      title: "Custom Proposals",
-      description: "Tailored maintenance solutions for your specific facility needs",
-      icon: "📋",
+      title: "Pressure Washing",
+      description: "Exterior cleaning for buildings, parking lots, and walkways",
+      icon: "💦",
     },
   ];
 
@@ -89,7 +89,7 @@ export default function Home() {
               <span className="text-teal-400">Commercial Maintenance</span>.
             </h1>
             <p className="mt-4 text-lg sm:text-xl lg:text-2xl text-slate-300 max-w-2xl mx-auto leading-relaxed">
-              Serving South Florida&apos;s premier offices and facilities with surgical precision and custom schedules.
+              Serving South Florida&apos;s commercial properties, residential homes, Airbnb rentals, and event venues with surgical precision and custom schedules.
             </p>
 
             {/* Prominent CTA Button */}
@@ -180,16 +180,14 @@ export default function Home() {
             ].map((image, index) => (
               <div
                 key={index}
-                className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 aspect-[4/3]"
+                className="relative overflow-hidden rounded-2xl shadow-lg aspect-[4/3]"
               >
                 <Image
                   src={image.src}
                   alt={image.alt}
                   fill
-                  className="object-cover group-hover:scale-110 transition-transform duration-700"
+                  className="object-cover"
                 />
-                {/* Overlay on hover */}
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </div>
             ))}
           </div>
@@ -220,7 +218,7 @@ export default function Home() {
             Get a customized proposal for your commercial maintenance needs. Serving Miami-Dade and Broward Counties.
           </p>
           <Link
-            href="/estimate"
+            href="/contact"
             className="inline-block px-8 py-4 bg-teal-600 hover:bg-teal-500 text-white font-bold rounded-full transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
           >
             Get Your Free Estimate
