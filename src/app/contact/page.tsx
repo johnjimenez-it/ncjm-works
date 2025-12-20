@@ -23,6 +23,8 @@ export default function ContactPage() {
     "Janitorial Management Services",
     "Overnight & Weekend Operations",
     "Custom Commercial Maintenance",
+    "Airbnb & Vacation Rental Cleaning",
+    "Event Cleanup Services",
     "Residential - Regular House Cleaning",
     "Residential - Deep Cleaning",
     "Residential - Move-in/Move-out Cleaning",

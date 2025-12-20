@@ -30,6 +30,16 @@ export default function Home() {
       icon: "🏠",
     },
     {
+      title: "Airbnb Cleaning",
+      description: "Professional turnover cleaning for short-term rentals and vacation properties",
+      icon: "🔑",
+    },
+    {
+      title: "Event Cleanup",
+      description: "Pre-event setup and post-event cleanup for corporate and private events",
+      icon: "🎉",
+    },
+    {
       title: "24/7 Operations",
       description: "Dedicated overnight and weekend crews to prevent business disruption",
       icon: "🌙",

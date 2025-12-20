@@ -93,6 +93,34 @@ export default function ServicesPage() {
       ],
       icon: "🛍️",
     },
+    {
+      title: "Airbnb & Vacation Rental Cleaning",
+      description:
+        "Keep your short-term rental property guest-ready with our specialized Airbnb cleaning services. We understand the importance of quick turnovers and 5-star reviews.",
+      features: [
+        "Same-day turnover cleaning",
+        "Linen and towel service",
+        "Restocking amenities",
+        "Property inspection reports",
+        "Guest checkout coordination",
+        "Deep cleaning between guests",
+      ],
+      icon: "🔑",
+    },
+    {
+      title: "Event Cleanup Services",
+      description:
+        "Make your event a success from start to finish with our professional event cleanup services. We handle pre-event setup and post-event cleanup for corporate gatherings, private parties, and special occasions.",
+      features: [
+        "Pre-event venue preparation",
+        "Post-event cleanup and restoration",
+        "Trash and recycling removal",
+        "Table and chair cleaning",
+        "Floor cleaning and spot treatment",
+        "Same-day service available",
+      ],
+      icon: "🎉",
+    },
   ];
 
   return (
@@ -105,9 +133,9 @@ export default function ServicesPage() {
               Our <span className="text-teal-400">Services</span>
             </h1>
             <p className="text-lg sm:text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed">
-              From daily office maintenance to specialized deep cleaning, we
-              provide comprehensive cleaning solutions for commercial facilities
-              and residential homes throughout South Florida.
+              From daily office maintenance to specialized deep cleaning and Airbnb turnovers, we
+              provide comprehensive cleaning solutions for commercial facilities,
+              vacation rentals, and residential homes throughout South Florida.
             </p>
           </div>
         </div>
