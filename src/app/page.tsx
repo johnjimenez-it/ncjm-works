@@ -55,7 +55,30 @@ export default function Home() {
     <div className="min-h-screen bg-slate-50 pt-16 sm:pt-20">
       {/* Hero Section */}
       <section className="relative min-h-[calc(100vh-4rem)] sm:min-h-[calc(100vh-5rem)] flex items-center justify-center bg-slate-900 overflow-hidden">
-        {/* Background overlay for video placeholder */}
+        {/* Background Image - Miami Skyline */}
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="/miami-skyline.png"
+            alt="Miami skyline at sunset"
+            fill
+            className="object-cover"
+            priority
+            quality={90}
+          />
+        </div>
+
+        {/* Video Background (for future use - currently commented out) */}
+        {/* <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover z-0"
+        >
+          <source src="/videos/miami-skyline.mp4" type="video/mp4" />
+        </video> */}
+
+        {/* Background overlay */}
         <div className="absolute inset-0 bg-gradient-to-b from-slate-900/95 to-slate-900/80 z-0" />
 
         {/* Content */}
@@ -108,9 +131,10 @@ export default function Home() {
           {/* Services Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
             {services.map((service, index) => (
-              <div
+              <Link
                 key={index}
-                className="group relative bg-white rounded-2xl p-6 sm:p-8 shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-100 hover:border-teal-200 hover:-translate-y-1"
+                href="/services"
+                className="group relative bg-white rounded-2xl p-6 sm:p-8 shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-100 hover:border-teal-200 hover:-translate-y-1 block cursor-pointer"
               >
                 {/* Glassmorphism effect on hover */}
                 <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-white/80 to-white/40 backdrop-blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10" />
@@ -124,7 +148,7 @@ export default function Home() {
                     {service.description}
                   </p>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>
