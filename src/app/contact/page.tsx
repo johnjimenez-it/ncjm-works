@@ -45,33 +45,40 @@ export default function ContactPage() {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Create mailto link with form data
-    const subject = encodeURIComponent(`Proposal Request - ${formData.serviceType}`);
-    const body = encodeURIComponent(
-      `Name: ${formData.fullName}\n` +
-      `Company: ${formData.company}\n` +
-      `Phone: ${formData.phone}\n` +
-      `Service Type: ${formData.serviceType}\n\n` +
-      `Message:\n${formData.message}`
-    );
-
-    // Open email client
-    window.location.href = `mailto:ncjmlandscapeandcleaning@gmail.com?subject=${subject}&body=${body}`;
-
-    // Show success state
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setIsSubmitted(true);
-      setFormData({
-        fullName: "",
-        company: "",
-        phone: "",
-        serviceType: "",
-        message: "",
+    try {
+      const response = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
       });
-      // Reset success message after 5 seconds
-      setTimeout(() => setIsSubmitted(false), 5000);
-    }, 500);
+
+      const data = await response.json();
+
+      if (response.ok) {
+        // Success
+        setIsSubmitted(true);
+        setFormData({
+          fullName: "",
+          company: "",
+          phone: "",
+          serviceType: "",
+          message: "",
+        });
+        // Reset success message after 5 seconds
+        setTimeout(() => setIsSubmitted(false), 5000);
+      } else {
+        // Error from API
+        alert(`Failed to send message: ${data.error || 'Unknown error'}. Please call us directly at (305) 282-2499.`);
+      }
+    } catch (error) {
+      // Network or other error
+      console.error('Error submitting form:', error);
+      alert('Failed to send message. Please call us directly at (305) 282-2499 or email ncjmlandscapeandcleaning@gmail.com.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -109,10 +116,7 @@ export default function ContactPage() {
                         <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                       </svg>
                       <p className="text-teal-800 font-medium">
-                        Your email client should have opened. If it didn&apos;t, please email us directly at{" "}
-                        <a href="mailto:ncjmlandscapeandcleaning@gmail.com" className="underline">
-                          ncjmlandscapeandcleaning@gmail.com
-                        </a>
+                        Thank you! Your message has been sent successfully. We&apos;ll get back to you soon!
                       </p>
                     </div>
                   </div>
@@ -228,9 +232,9 @@ export default function ContactPage() {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full sm:w-auto px-8 py-4 bg-teal-600 hover:bg-teal-500 text-white font-bold rounded-full transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="w-full sm:w-auto px-8 py-4 bg-teal-600 hover:bg-teal-500 text-white font-bold rounded-full transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
                   >
-                    {isSubmitting ? "Opening Email..." : "Submit Request"}
+                    {isSubmitting ? "Sending..." : "Send Message"}
                   </button>
                 </form>
               </div>
