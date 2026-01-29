@@ -110,114 +110,116 @@ export default function InvoicesPage() {
     const invoiceNumber = `INV-${Date.now()}`;
     const today = new Date().toLocaleDateString('en-US');
 
-    // Company Header
-    doc.setFontSize(28);
-    doc.setTextColor(13, 148, 136); // Teal color
-    doc.text('NCJM', 20, 25);
+    // Load Logo
+    const logoImg = new window.Image();
+    logoImg.src = '/logo-new.png';
 
-    doc.setFontSize(12);
-    doc.setTextColor(100, 100, 100);
-    doc.text('Maintenance Services LLC', 20, 33);
+    logoImg.onload = () => {
+      // Company Header - Logo
+      doc.addImage(logoImg, 'PNG', 20, 15, 50, 20);
 
-    doc.setFontSize(10);
-    doc.text('8731 NW 16 Ave, Miami, FL 33147', 20, 41);
-    doc.text('Phone: (305) 282-2499', 20, 47);
-    doc.text('Email: ncjmlandscapeandcleaning@gmail.com', 20, 53);
-
-    // Invoice Title
-    doc.setFontSize(32);
-    doc.setTextColor(30, 41, 59);
-    doc.text('INVOICE', 140, 30);
-
-    // Invoice Details
-    doc.setFontSize(10);
-    doc.setTextColor(100, 100, 100);
-    doc.text(`Invoice #: ${invoiceNumber}`, 140, 42);
-    doc.text(`Date: ${today}`, 140, 49);
-
-    // Divider line
-    doc.setDrawColor(226, 232, 240);
-    doc.setLineWidth(0.5);
-    doc.line(20, 62, 190, 62);
-
-    // Bill To
-    doc.setFontSize(11);
-    doc.setTextColor(100, 100, 100);
-    doc.text('BILL TO:', 20, 75);
-
-    doc.setFontSize(14);
-    doc.setTextColor(30, 41, 59);
-    doc.text(invoiceData.clientName, 20, 84);
-
-    doc.setFontSize(10);
-    doc.setTextColor(80, 80, 80);
-    if (invoiceData.clientPhone) {
-      doc.text(`Phone: ${invoiceData.clientPhone}`, 20, 92);
-    }
-    if (invoiceData.clientAddress) {
-      doc.text(invoiceData.clientAddress, 20, 100);
-    }
-
-    // Services Table
-    let yPos = 120;
-
-    // Table Header
-    doc.setFillColor(13, 148, 136);
-    doc.rect(20, yPos - 6, 170, 10, 'F');
-    doc.setTextColor(255, 255, 255);
-    doc.setFontSize(11);
-    doc.text('Service', 25, yPos);
-    doc.text('Amount', 165, yPos);
-
-    yPos += 12;
-
-    // Table Rows
-    doc.setTextColor(50, 50, 50);
-    doc.setFontSize(11);
-    invoiceData.services.forEach(service => {
-      // Alternate row background
-      doc.setFillColor(248, 250, 252);
-      doc.rect(20, yPos - 5, 170, 10, 'F');
-
-      doc.setTextColor(50, 50, 50);
-      doc.text(service.name, 25, yPos);
-      doc.text(`$${service.price.toFixed(2)}`, 165, yPos);
-      yPos += 12;
-    });
-
-    // Total
-    yPos += 8;
-    doc.setDrawColor(13, 148, 136);
-    doc.setLineWidth(1);
-    doc.line(120, yPos - 5, 190, yPos - 5);
-
-    doc.setFontSize(14);
-    doc.setTextColor(13, 148, 136);
-    doc.text('TOTAL:', 130, yPos + 5);
-    doc.setFontSize(16);
-    doc.text(`$${calculateTotal().toFixed(2)}`, 162, yPos + 5);
-
-    // Notes
-    if (invoiceData.notes) {
-      yPos += 25;
       doc.setFontSize(10);
       doc.setTextColor(100, 100, 100);
-      doc.text('Notes:', 20, yPos);
-      doc.setTextColor(70, 70, 70);
-      const splitNotes = doc.splitTextToSize(invoiceData.notes, 170);
-      doc.text(splitNotes, 20, yPos + 7);
-    }
+      doc.text('Maintenance Services LLC', 20, 42);
+      doc.text('8731 NW 16 Ave, Miami, FL 33147', 20, 48);
+      doc.text('Phone: (305) 282-2499', 20, 54);
+      doc.text('Email: ncjmlandscapeandcleaning@gmail.com', 20, 60);
 
-    // Footer
-    doc.setFontSize(10);
-    doc.setTextColor(150, 150, 150);
-    doc.text('Thank you for your business!', 105, 275, { align: 'center' });
-    doc.setFontSize(8);
-    doc.text('Family-owned business serving Miami-Dade and Broward Counties', 105, 282, { align: 'center' });
+      // Invoice Title
+      doc.setFontSize(32);
+      doc.setTextColor(30, 41, 59);
+      doc.text('INVOICE', 140, 30);
 
-    // Save
-    const fileName = `Invoice-${invoiceData.clientName.replace(/\s+/g, '-')}-${invoiceNumber}.pdf`;
-    doc.save(fileName);
+      // Invoice Details
+      doc.setFontSize(10);
+      doc.setTextColor(100, 100, 100);
+      doc.text(`Invoice #: ${invoiceNumber}`, 140, 42);
+      doc.text(`Date: ${today}`, 140, 49);
+
+      // Divider line
+      doc.setDrawColor(226, 232, 240);
+      doc.setLineWidth(0.5);
+      doc.line(20, 65, 190, 65);
+
+      // Bill To
+      doc.setFontSize(11);
+      doc.setTextColor(100, 100, 100);
+      doc.text('BILL TO:', 20, 75);
+
+      doc.setFontSize(14);
+      doc.setTextColor(30, 41, 59);
+      doc.text(invoiceData.clientName, 20, 84);
+
+      doc.setFontSize(10);
+      doc.setTextColor(80, 80, 80);
+      if (invoiceData.clientPhone) {
+        doc.text(`Phone: ${invoiceData.clientPhone}`, 20, 92);
+      }
+      if (invoiceData.clientAddress) {
+        doc.text(invoiceData.clientAddress, 20, 100);
+      }
+
+      // Services Table
+      let yPos = 120;
+
+      // Table Header
+      doc.setFillColor(13, 148, 136);
+      doc.rect(20, yPos - 6, 170, 10, 'F');
+      doc.setTextColor(255, 255, 255);
+      doc.setFontSize(11);
+      doc.text('Service', 25, yPos);
+      doc.text('Amount', 165, yPos);
+
+      yPos += 12;
+
+      // Table Rows
+      doc.setTextColor(50, 50, 50);
+      doc.setFontSize(11);
+      invoiceData.services.forEach(service => {
+        // Alternate row background
+        doc.setFillColor(248, 250, 252);
+        doc.rect(20, yPos - 5, 170, 10, 'F');
+
+        doc.setTextColor(50, 50, 50);
+        doc.text(service.name, 25, yPos);
+        doc.text(`$${service.price.toFixed(2)}`, 165, yPos);
+        yPos += 12;
+      });
+
+      // Total
+      yPos += 8;
+      doc.setDrawColor(13, 148, 136);
+      doc.setLineWidth(1);
+      doc.line(120, yPos - 5, 190, yPos - 5);
+
+      doc.setFontSize(14);
+      doc.setTextColor(13, 148, 136);
+      doc.text('TOTAL:', 130, yPos + 5);
+      doc.setFontSize(16);
+      doc.text(`$${calculateTotal().toFixed(2)}`, 162, yPos + 5);
+
+      // Notes
+      if (invoiceData.notes) {
+        yPos += 25;
+        doc.setFontSize(10);
+        doc.setTextColor(100, 100, 100);
+        doc.text('Notes:', 20, yPos);
+        doc.setTextColor(70, 70, 70);
+        const splitNotes = doc.splitTextToSize(invoiceData.notes, 170);
+        doc.text(splitNotes, 20, yPos + 7);
+      }
+
+      // Footer
+      doc.setFontSize(10);
+      doc.setTextColor(150, 150, 150);
+      doc.text('Thank you for your business!', 105, 275, { align: 'center' });
+      doc.setFontSize(8);
+      doc.text('Family-owned business serving Miami-Dade and Broward Counties', 105, 282, { align: 'center' });
+
+      // Save
+      const fileName = `Invoice-${invoiceData.clientName.replace(/\s+/g, '-')}-${invoiceNumber}.pdf`;
+      doc.save(fileName);
+    };
   };
 
   // Clear form
