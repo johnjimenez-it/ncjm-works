@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { jsPDF } from 'jspdf';
 
 interface ServiceItem {
@@ -42,6 +42,45 @@ export default function InvoicesPage() {
 
   const [customServiceName, setCustomServiceName] = useState('');
   const [customServicePrice, setCustomServicePrice] = useState('');
+
+  const [history, setHistory] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
+
+  useEffect(() => {
+    fetchHistory();
+  }, []);
+
+  const fetchHistory = async () => {
+    try {
+      const res = await fetch('/api/invoices');
+      const data = await res.json();
+      if (Array.isArray(data)) setHistory(data);
+    } catch (err) {
+      console.error('Failed to fetch history', err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const saveToDatabase = async () => {
+    setSaving(true);
+    try {
+      await fetch('/api/invoices', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          ...invoiceData,
+          total: calculateTotal()
+        }),
+      });
+      fetchHistory(); // Refresh list
+    } catch (err) {
+      console.error('Failed to save invoice', err);
+    } finally {
+      setSaving(false);
+    }
+  };
 
   // Add a pre-defined service
   const addService = (serviceName: string, serviceNameEn: string, defaultPrice: number) => {
@@ -219,6 +258,9 @@ export default function InvoicesPage() {
       // Save
       const fileName = `Invoice-${invoiceData.clientName.replace(/\s+/g, '-')}-${invoiceNumber}.pdf`;
       doc.save(fileName);
+
+      // Save to Database automatically
+      saveToDatabase();
     };
   };
 
@@ -427,6 +469,62 @@ export default function InvoicesPage() {
         <p className="text-center text-slate-400 text-sm mt-6">
           La factura se descargará en inglés para tus clientes
         </p>
+
+        {/* History Section */}
+        <div className="mt-16 pt-10 border-t-2 border-slate-200">
+          <div className="flex justify-between items-end mb-6">
+            <div>
+              <h2 className="text-2xl font-bold text-slate-800">Historial de Facturas</h2>
+              <p className="text-slate-500">Últimas 50 facturas guardadas</p>
+            </div>
+            <div className="text-right">
+              <div className="text-sm font-semibold text-slate-400 uppercase">Ganancia Total</div>
+              <div className="text-2xl font-black text-teal-600">
+                ${history.reduce((sum, inv) => sum + parseFloat(inv.total), 0).toFixed(2)}
+              </div>
+            </div>
+          </div>
+
+          {loading ? (
+            <div className="text-center py-10 text-slate-400">Cargando historial...</div>
+          ) : history.length === 0 ? (
+            <div className="bg-white rounded-2xl p-10 text-center text-slate-400 border-2 border-dashed border-slate-200">
+              No hay facturas guardadas todavía.
+            </div>
+          ) : (
+            <div className="space-y-4">
+              {history.map((inv) => (
+                <div key={inv.id} className="bg-white rounded-2xl shadow-md p-5 border border-slate-100 flex justify-between items-center group hover:border-teal-300 transition-all">
+                  <div>
+                    <div className="text-xs font-bold text-teal-600 uppercase mb-1">
+                      {new Date(inv.created_at).toLocaleDateString('es-ES', { month: 'short', day: 'numeric', year: 'numeric' })}
+                    </div>
+                    <div className="text-lg font-bold text-slate-800">{inv.client_name}</div>
+                    <div className="text-sm text-slate-500">{inv.client_phone || 'Sin teléfono'}</div>
+                  </div>
+                  <div className="text-right">
+                    <div className="text-xl font-black text-slate-700">${parseFloat(inv.total).toFixed(2)}</div>
+                    <button 
+                      onClick={() => {
+                        setInvoiceData({
+                          clientName: inv.client_name,
+                          clientPhone: inv.client_phone || '',
+                          clientAddress: inv.client_address || '',
+                          services: Array.isArray(inv.services) ? inv.services : [],
+                          notes: inv.notes || '',
+                        });
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                      }}
+                      className="text-xs font-bold text-teal-600 hover:text-teal-700 underline mt-1 opacity-0 group-hover:opacity-100 transition-opacity"
+                    >
+                      Re-usar Datos
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
 
       </div>
     </div>
