@@ -2,45 +2,49 @@ import { createClient } from '@vercel/postgres';
 import { NextResponse } from 'next/server';
 
 export async function GET() {
+  console.log('API GET: Starting fetch...');
   const url = process.env.ncjm_POSTGRES_URL || process.env.POSTGRES_URL || process.env.DATABASE_URL;
   
   if (!url) {
-    return NextResponse.json({ error: 'No se encontró la configuración de la base de datos (POSTGRES_URL missing)' }, { status: 500 });
+    console.error('API GET: No URL found in env');
+    return NextResponse.json({ error: 'Configuración faltante: No se encontró ncjm_POSTGRES_URL' }, { status: 500 });
   }
 
+  console.log('API GET: URL found, creating client...');
   const client = createClient({ connectionString: url });
   
   try {
-    // Add a 5-second timeout to the connection
-    const connectPromise = client.connect();
-    const timeoutPromise = new Promise((_, reject) => setTimeout(() => reject(new Error('Timeout de conexión (5s)')), 5000));
+    console.log('API GET: Connecting...');
+    await client.connect();
+    console.log('API GET: Connected, running query...');
     
-    await Promise.race([connectPromise, timeoutPromise]);
-    
-    const { rows } = await client.sql`
-      SELECT * FROM invoices 
-      ORDER BY created_at DESC 
-      LIMIT 50
-    `;
+    const { rows } = await client.sql`SELECT * FROM invoices ORDER BY created_at DESC LIMIT 50`;
+    console.log(`API GET: Success, found ${rows.length} rows`);
     return NextResponse.json(rows);
   } catch (error: any) {
-    console.error('Fetch Error:', error);
+    console.error('API GET Error:', error.message);
     if (error.message.includes('relation "invoices" does not exist')) {
       return NextResponse.json([]);
     }
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    return NextResponse.json({ error: `Error de base de datos: ${error.message}` }, { status: 500 });
   } finally {
-    try { await client.end(); } catch (e) {}
+    try { 
+      await client.end(); 
+      console.log('API GET: Connection closed');
+    } catch (e) {}
   }
 }
 
 export async function POST(request: Request) {
+  console.log('API POST: Starting save...');
   const url = process.env.ncjm_POSTGRES_URL || process.env.POSTGRES_URL || process.env.DATABASE_URL;
   const client = createClient({ connectionString: url });
   
   try {
     const data = await request.json();
+    console.log('API POST: Connecting...');
     await client.connect();
+    console.log('API POST: Connected, building table/inserting...');
 
     await client.sql`
       CREATE TABLE IF NOT EXISTS invoices (
@@ -61,11 +65,15 @@ export async function POST(request: Request) {
       RETURNING *;
     `;
 
+    console.log('API POST: Success');
     return NextResponse.json(result.rows[0]);
   } catch (error: any) {
-    console.error('Save Error:', error);
+    console.error('API POST Error:', error.message);
     return NextResponse.json({ error: error.message }, { status: 500 });
   } finally {
-    try { await client.end(); } catch (e) {}
+    try { 
+      await client.end(); 
+      console.log('API POST: Connection closed');
+    } catch (e) {}
   }
 }
