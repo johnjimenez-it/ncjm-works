@@ -42,6 +42,7 @@ export default function InvoicesPage() {
 
   const [customServiceName, setCustomServiceName] = useState('');
   const [customServicePrice, setCustomServicePrice] = useState('');
+  const [showToast, setShowToast] = useState(false);
 
   const [history, setHistory] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
@@ -93,6 +94,10 @@ export default function InvoicesPage() {
       ...prev,
       services: [...prev.services, newService],
     }));
+    
+    // Show toast for feedback
+    setShowToast(true);
+    setTimeout(() => setShowToast(false), 2000);
   };
 
   // Add custom service
@@ -278,8 +283,34 @@ export default function InvoicesPage() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-100 pt-20 pb-10 px-4">
+    <div className="min-h-screen bg-slate-100 pt-20 pb-24 px-4">
       <div className="max-w-2xl mx-auto">
+
+        {/* Floating Feedback Toast */}
+        {showToast && (
+          <div className="fixed top-24 left-1/2 -translate-x-1/2 z-[100] bg-teal-600 text-white px-6 py-3 rounded-full shadow-2xl font-bold animate-bounce flex items-center gap-2">
+            <span>✅</span> ¡Servicio Agregado!
+          </div>
+        )}
+
+        {/* Mobile Sticky Bar */}
+        {invoiceData.services.length > 0 && (
+          <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-slate-200 p-4 z-50 shadow-[0_-10px_20px_rgba(0,0,0,0.1)] flex justify-between items-center animate-slide-up">
+            <div>
+              <div className="text-xs font-bold text-slate-400 uppercase">Total Actual</div>
+              <div className="text-2xl font-black text-teal-600">${calculateTotal().toFixed(2)}</div>
+            </div>
+            <button 
+              onClick={() => {
+                const element = document.getElementById('selected-services-section');
+                element?.scrollIntoView({ behavior: 'smooth' });
+              }}
+              className="px-6 py-3 bg-teal-600 text-white font-bold rounded-xl active:scale-95 transition-transform"
+            >
+              Revisar 📋
+            </button>
+          </div>
+        )}
 
         {/* Header */}
         <div className="text-center mb-8">
@@ -390,7 +421,7 @@ export default function InvoicesPage() {
 
         {/* Selected Services */}
         {invoiceData.services.length > 0 && (
-          <div className="bg-white rounded-2xl shadow-lg p-6 mb-6">
+          <div id="selected-services-section" className="bg-white rounded-2xl shadow-lg p-6 mb-6 scroll-mt-24">
             <h2 className="text-xl font-bold text-slate-700 mb-4 flex items-center gap-2">
               <span className="text-2xl">📋</span> Servicios Agregados
             </h2>
