@@ -1,5 +1,12 @@
-import { sql } from '@vercel/postgres';
+import { createPool } from '@vercel/postgres';
 import { NextResponse } from 'next/server';
+
+// Create a custom pool that uses your specific prefixed variable
+const pool = createPool({
+  connectionString: process.env.ncjm_POSTGRES_URL || process.env.POSTGRES_URL
+});
+
+const sql = pool.sql;
 
 export async function GET() {
   try {
