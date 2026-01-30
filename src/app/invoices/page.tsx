@@ -47,18 +47,26 @@ export default function InvoicesPage() {
   const [history, setHistory] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   useEffect(() => {
     fetchHistory();
   }, []);
 
   const fetchHistory = async () => {
+    setLoading(true);
+    setErrorMessage(null);
     try {
       const res = await fetch('/api/invoices');
       const data = await res.json();
-      if (Array.isArray(data)) setHistory(data);
-    } catch (err) {
+      if (data.error) {
+        setErrorMessage(data.error);
+      } else if (Array.isArray(data)) {
+        setHistory(data);
+      }
+    } catch (err: any) {
       console.error('Failed to fetch history', err);
+      setErrorMessage('Error de conexión con el servidor');
     } finally {
       setLoading(false);
     }
@@ -516,7 +524,18 @@ export default function InvoicesPage() {
             </div>
           </div>
 
-          {loading ? (
+          {errorMessage ? (
+            <div className="bg-red-50 text-red-600 rounded-2xl p-8 text-center border-2 border-red-100">
+              <p className="font-bold mb-2">Hubo un problema:</p>
+              <p className="text-sm mb-4">{errorMessage}</p>
+              <button 
+                onClick={fetchHistory}
+                className="px-4 py-2 bg-red-600 text-white rounded-lg font-bold text-sm"
+              >
+                Intentar de nuevo
+              </button>
+            </div>
+          ) : loading ? (
             <div className="text-center py-10 text-slate-400">Cargando historial...</div>
           ) : history.length === 0 ? (
             <div className="bg-white rounded-2xl p-10 text-center text-slate-400 border-2 border-dashed border-slate-200">
